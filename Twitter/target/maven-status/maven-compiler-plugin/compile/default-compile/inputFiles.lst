@@ -1,0 +1,12 @@
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/repositories/interfaces/IUserRepository.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/services/interfaces/ITweetService.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/services/concrete/TweetService.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/models/User.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/models/Tweet.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/controllers/UserController.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/controllers/TweetController.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/TwitterApplication.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/services/concrete/UserService.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/services/interfaces/IUserService.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/models/Role.java
+/Users/quintaartsen/Downloads/Twitter/src/main/java/twitter/repositories/interfaces/ITweetRepository.java
