@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,17 +61,17 @@ public class User {
     @Getter
     @Setter
     @ManyToMany
-    private List<User> followers;
+    private List<User> followers = new  ArrayList();
 
     @Getter
     @Setter
     @ManyToMany
-    private List<User> following;
+    private List<User> following = new  ArrayList();
 
     @Getter
     @Setter
     @OneToMany
-    private List<Tweet> Tweets;
+    private List<Tweet> Tweets = new  ArrayList();
 
     public User(Role role, String email, String username, String password) {
         this.role = role;

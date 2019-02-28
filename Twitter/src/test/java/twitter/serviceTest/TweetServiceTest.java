@@ -1,5 +1,6 @@
 package twitter.serviceTest;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -14,7 +15,7 @@ import twitter.services.concrete.TweetService;
 import java.util.UUID;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class TweetServiceTest {
@@ -40,53 +41,51 @@ public class TweetServiceTest {
     }
 
     @Test
-    public void createTest() throws Exception {
-        UUID uuid1 = new UUID(1,1);
+    public void addLikeTest1() {
 
-        User user = new User(Role.User, "email@mail.com", "username", "password");
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user));
-        user.setId(uuid1);
-        tweetService.createTweet(new Tweet("message", user));
-        verify(userRepo, atLeastOnce()).save(user);
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+        Tweet tweet = new Tweet("test", user1);
+        tweetService.addLike(tweet, user1);
+        Assert.assertEquals(1, tweet.getLikes().size());
     }
 
     @Test
-    public void createTest2() throws Exception {
-        UUID uuid1 = new UUID(1,1);
+    public void addLikeTest2() {
 
-        User user = new User(Role.User, "email@mail.com", "username", "password");
-        when(userRepo.findById(uuid1)).thenReturn(null);
-        user.setId(uuid1);
-        tweetService.createTweet(new Tweet("message", user));
-        verify(userRepo, never()).save(user);
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+        Tweet tweet = new Tweet("test", user1);
+        tweetService.addLike(tweet, user1);
+        tweetService.addLike(tweet, user1);
+        Assert.assertEquals(1, tweet.getLikes().size());
     }
 
     @Test
-    public void deleteTest() throws Exception {
-        UUID uuid1 = new UUID(1,1);
+    public void removeLikeTest1() {
 
-        User user = new User(Role.User, "email@mail.com", "username", "password");
-        Tweet tweet = new Tweet("message", user);
-        user.setId(uuid1);
-        tweet.setId(uuid1);
-
-        when(tweetRepo.findById(tweet.getId())).thenReturn(java.util.Optional.of(tweet));
-        tweetService.deleteTweetById(uuid1);
-        verify(tweetRepo, atLeastOnce()).delete(tweet);
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+        Tweet tweet = new Tweet("test", user1);
+        tweetService.addLike(tweet, user1);
+        tweetService.removeLike(tweet, user1);
+        Assert.assertEquals(0, tweet.getLikes().size());
     }
 
+    @Test
+    public void removeLikeTest2() {
 
-    @Test(expected= Exception.class)
-    public void deleteTest2() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-
-        User user = new User(Role.User, "email@mail.com", "username", "password");
-        Tweet tweet = new Tweet("message", user);
-        user.setId(uuid1);
-        tweet.setId(uuid1);
-
-        when(tweetRepo.findById(tweet.getId())).thenReturn(null);
-        tweetService.deleteTweetById(uuid1);
-        verify(tweetRepo, never()).delete(tweet);
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        user2.setId(new UUID(1, 1));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+        Tweet tweet = new Tweet("test", user1);
+        tweetService.addLike(tweet, user1);
+        tweetService.removeLike(tweet, user2);
+        Assert.assertEquals(1, tweet.getLikes().size());
     }
 }

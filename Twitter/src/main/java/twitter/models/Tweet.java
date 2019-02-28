@@ -4,7 +4,9 @@ package twitter.models;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -26,22 +28,22 @@ public class Tweet {
 
     @Getter
     @Setter
-    private List<String> trends;
+    private List<String> trends = new ArrayList<>();
 
     @Getter
     @Setter
     @OneToMany
-    private List<String> mentions;
+    private List<String> mentions = new ArrayList<>();
 
     @Getter
     @Setter
     @OneToMany
-    private List<User> likes;
+    private List<User> likes = new ArrayList<>();
 
     @Getter
     @Setter
     @OneToMany
-    private List<User> reports;
+    private List<User> reports = new ArrayList<>();
 
     @Getter
     @Setter
@@ -63,5 +65,21 @@ public class Tweet {
 
         this.text = message;
         this.owner = user;
+    }
+
+    public void addLike(User user)
+    {
+        if(!likes.contains(user))
+        {
+            likes.add(user);
+        }
+    }
+
+    public void removeLike(User user)
+    {
+        if(likes.contains(user))
+        {
+            likes.remove(user);
+        }
     }
 }

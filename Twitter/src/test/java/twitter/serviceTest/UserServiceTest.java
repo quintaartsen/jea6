@@ -1,5 +1,6 @@
 package twitter.serviceTest;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -25,7 +26,7 @@ public class UserServiceTest {
     private IUserRepository userRepo;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         initMocks(this);
     }
 
@@ -35,170 +36,77 @@ public class UserServiceTest {
     }
 
     @Test
-    public void createTest1() throws Exception {
-        UUID uuid1 = new UUID(1,1);
+    public void addFollowingTest1() {
 
-        User user = new User(Role.User, "email@mail.com", "username", "password");
-        user.setId(uuid1);
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        user2.setId(new UUID(2, 2));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+        when(userRepo.findById(user2.getId())).thenReturn(java.util.Optional.of(user2));
 
-        when(userRepo.findById(user.getId())).thenReturn(null);
-
-        userService.createUser(user);
-        verify(userRepo, atLeastOnce());
+        User returnUser = userService.addFollowing(user1.getId(), user2.getId());
+        Assert.assertEquals(1, returnUser.getFollowing().size());
     }
 
     @Test
-    public void createTest2() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-
-        User user = new User(Role.User, "email@mail.com", "username", "password");
-        user.setId(uuid1);
-
-        when(userRepo.findById(user.getId())).thenReturn(null);
-
-
-        userService.createUser(user);
-        verify(userRepo, never());
-    }
-
-    @Test
-    public void createTest3() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        User user = new User(Role.User, "email@mail.com", "username", "password");
-        user.setId(uuid1);
-
-        when(userRepo.findById(user.getId())).thenReturn(null);
-
-        userService.createUser(user);
-        verify(userRepo, never());
-    }
-
-    @Test
-    public void updateUsernameTest1() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        User user = new User(Role.User, "user113@mail.com", "user113", "password");
-        user.setId(uuid1);
-        String newUsername = "username2";
-
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user));
-
-        userService.updateUsername(newUsername, user);
-        verify(userRepo, atLeastOnce()).save(user);
-    }
-
-    @Test
-    public void updateUsernameTest2() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        User user = new User(Role.User, "user113@mail.com", "user113", "password");
-        user.setId(uuid1);
-        String newUsername = "";
-
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user));
-
-        userService.updateUsername(newUsername, user);
-        verify(userRepo, never()).save(user);
-    }
-
-    @Test
-    public void updateUsernameTest3() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        User user = new User(Role.User, "user113@mail.com", "user113", "password");
-        user.setId(uuid1);
-        String newUsername = "";
-
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user));
-
-        userService.updateUsername(newUsername, user);
-        verify(userRepo, never()).save(user);
-    }
-
-    @Test
-    public void addFollowingTest1() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        UUID uuid2 = new UUID(2,2);
-        // Case 1 - Add another user to your following list
-        User user1 = new User(Role.User, "user500@mail.com", "user500", "password");
-        User user2 = new User(Role.User, "user510@mail.com", "user510", "password");
-        user1.setId(uuid1);
-        user2.setId(uuid2);
-
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user1));
-        when(userRepo.findById(uuid2)).thenReturn(java.util.Optional.of(user2));
-
+    public void addFollowingTest2() {
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        user2.setId(new UUID(2, 2));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+        when(userRepo.findById(user2.getId())).thenReturn(java.util.Optional.of(user2));
 
         userService.addFollowing(user1.getId(), user2.getId());
-
-        verify(userRepo, atLeastOnce()).save(user1);
-        verify(userRepo, atLeastOnce()).save(user2);
+        Assert.assertEquals(1, user1.getFollowers().size());
     }
 
     @Test
-    public void addFollowingTest2() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        User user1 = new User(Role.User, "user500@mail.com", "user500", "password");
-        user1.setId(uuid1);
+    public void removeFollowingTest1() {
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        user2.setId(new UUID(2, 2));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+        when(userRepo.findById(user2.getId())).thenReturn(java.util.Optional.of(user2));
 
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user1));
-
-        userService.addFollowing(user1.getId(), user1.getId());
-        verify(userRepo, never()).save(user1);
-    }
-
-    @Test
-    public void addFollowingTest3() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        UUID uuid3 = new UUID(3,3);
-
-        User user1 = new User(Role.User, "user500@mail.com", "user500", "password");
-        user1.setId(uuid1);
-
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user1));
-        when(userRepo.findById(uuid3)).thenReturn(null);
-
-        userService.addFollowing(user1.getId(), new UUID(3,3));
-        verify(userRepo, never()).save(user1);
-    }
-
-    @Test
-    public void removeFollowingTest1() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        UUID uuid2 = new UUID(2,2);
-
-        User user1 = new User(Role.User, "user500@mail.com", "user500", "password");
-        User user2 = new User(Role.User, "user510@mail.com", "user510", "password");
-        user1.setId(uuid1);
-        user2.setId(uuid2);
-
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user1));
-        when(userRepo.findById(uuid2)).thenReturn(java.util.Optional.of(user2));
-
+        userService.addFollowing(user1.getId(), user2.getId());
         userService.removeFollowing(user1.getId(), user2.getId());
-        verify(userRepo, atLeastOnce()).save(user1);
+        Assert.assertEquals(0, user1.getFollowers().size());
     }
 
     @Test
-    public void removeFollowingTest2() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        User user1 = new User(Role.User, "user500@mail.com", "user500", "password");
-        user1.setId(uuid1);
+    public void removeFollowingTest2() {
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        user2.setId(new UUID(2, 2));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+        when(userRepo.findById(user2.getId())).thenReturn(java.util.Optional.of(user2));
 
-        when(userRepo.findById(new UUID(1,1))).thenReturn(java.util.Optional.of(user1));
-
-        userService.removeFollowing(user1.getId(), user1.getId());
-        verify(userRepo, never()).save(user1);
+        userService.addFollowing(user1.getId(), user2.getId());
+        userService.removeFollowing(user1.getId(), user2.getId());
+        Assert.assertEquals(0, user2.getFollowing().size());
     }
 
     @Test
-    public void removeFollowingTest3() throws Exception {
-        UUID uuid1 = new UUID(1,1);
-        UUID uuid3 = new UUID(3,3);
-        User user1 = new User(Role.User, "user500@mail.com", "user500", "password");
-        user1.setId(new UUID(1,1));
+    public void updateUsernameTest1() {
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
 
-        when(userRepo.findById(uuid1)).thenReturn(java.util.Optional.of(user1));
-        when(userRepo.findById(uuid3)).thenReturn(null);
+        userService.updateUsername("test", user1);
+        Assert.assertEquals("test", user1.getUserName());
+    }
 
-        userService.removeFollowing(user1.getId(), uuid3);
-        verify(userRepo, never()).save(user1);
+    @Test
+    public void updateUsernameTest3() {
+        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        user1.setId(new UUID(1, 1));
+        when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
+
+        userService.updateUsername("", user1);
+        Assert.assertEquals("username", user1.getUserName());
     }
 }

@@ -9,11 +9,19 @@ import twitter.services.interfaces.IUserService;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * The type User service.
+ */
 @Service
 public class UserService implements IUserService {
 
     private final IUserRepository repository;
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @param repository the repository
+     */
     @Autowired
     public UserService(IUserRepository repository) {
         this.repository = repository;
@@ -44,7 +52,14 @@ public class UserService implements IUserService {
         }
     }
 
-    public void addFollowing(UUID followingId, UUID id) {
+    /**
+     * Add following user.
+     *
+     * @param followingId the following id
+     * @param id          the id
+     * @return the user
+     */
+    public User addFollowing(UUID followingId, UUID id) {
         if(followingId != id) {
             User user = repository.findById(id).orElse(null);
             User followingUser = repository.findById(followingId).orElse(null);
@@ -55,11 +70,20 @@ public class UserService implements IUserService {
 
                 repository.save(user);
                 repository.save(followingUser);
+                return user;
             }
         }
+        return null;
     }
 
-    public void removeFollowing(UUID followingId, UUID id) {
+    /**
+     * Remove following user.
+     *
+     * @param followingId the following id
+     * @param id          the id
+     * @return the user
+     */
+    public User removeFollowing(UUID followingId, UUID id) {
         User user = repository.findById(id).orElse(null);
         User followingUser = repository.findById(followingId).orElse(null);
         if(user != null && followingUser != null) {
@@ -67,7 +91,9 @@ public class UserService implements IUserService {
             followingUser.removeFollower(user);
             repository.save(user);
             repository.save(followingUser);
+            return user;
         }
+        return null;
     }
 }
 
