@@ -4,13 +4,8 @@ package twitter.models;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 @Entity
 public class Tweet {
@@ -28,15 +23,6 @@ public class Tweet {
 
     @Getter
     @Setter
-    private List<String> trends = new ArrayList<>();
-
-    @Getter
-    @Setter
-    @OneToMany
-    private List<String> mentions = new ArrayList<>();
-
-    @Getter
-    @Setter
     @OneToMany
     private List<User> likes = new ArrayList<>();
 
@@ -50,22 +36,26 @@ public class Tweet {
     @OneToOne
     private User owner;
 
-    public Tweet(String message, User user) {
-        Matcher trendsMatches = Pattern.compile("\\B#\\w\\w+").matcher(message);
-        while (trendsMatches.find()) {
-            trends.add(trendsMatches.group());
-        }
-        this.setTrends(trends);
+    @Getter
+    @Setter
+    private Date createdAt;
 
-        Matcher mentionMatches = Pattern.compile("\\B@\\w\\w+").matcher(message);
-        while (mentionMatches.find()) {
-            mentions.add(mentionMatches.group());
-        }
-        this.setMentions(mentions);
 
+    public Tweet(String message, User user)
+    {
         this.text = message;
         this.owner = user;
     }
+
+    public Tweet(UUID id, String text, Date createdAt, User owner, List<User> likes, List<User> reports) {
+        this.id = id;
+        this.text = text;
+        this.createdAt = createdAt;
+        this.owner = owner;
+        this.likes = likes;
+        this.reports = reports;
+    }
+
 
     public void addLike(User user)
     {

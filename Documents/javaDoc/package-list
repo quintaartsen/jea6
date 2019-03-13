@@ -1,0 +1,6 @@
+twitter
+twitter.controllers
+twitter.models
+twitter.repositories.interfaces
+twitter.services.concrete
+twitter.services.interfaces

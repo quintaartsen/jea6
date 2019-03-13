@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "tweets")
 public class TweetController {
 
     private final ITweetService service;
@@ -20,27 +19,46 @@ public class TweetController {
         this.service = service;
     }
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(path="tweets", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
     List<Tweet> getTweets() {
         return service.getTweets();
     }
 
-    @GetMapping(path = "{id}", produces = "application/json")
+    @GetMapping(path = "tweets/{id}", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
     Tweet getTweetById(@PathVariable UUID id) {
         return service.getTweetById(id);
     }
 
-    @PostMapping(produces = "application/json", consumes = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping(path = "users/{id}/tweets", produces = "application/json")
     public @ResponseBody
-    Tweet CreateTweet(@RequestBody Tweet tweet) {
-        return service.createTweet(tweet);
+    List<Tweet> getTweetByUserId(@PathVariable UUID id) {
+        return service.getTweetByUserId(id);
     }
 
-    @DeleteMapping(path = "{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping(path = "users/{id}/tweets", produces = "application/json", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void CreateTweet(@PathVariable UUID id, @RequestBody Tweet tweet) {
+         service.createTweet(tweet, id);
+    }
+
+    @PostMapping(path= "tweets/{id}/like/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void LikeTweet(@PathVariable UUID id, @PathVariable UUID userId) {
+        service.addLike(id, userId);
+    }
+
+    @DeleteMapping(path= "tweets/{id}/like/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void UnLikeTweet(@PathVariable UUID id, @PathVariable UUID userId) {
+        service.removeLike(id, userId);
+    }
+
+    @DeleteMapping(path = "tweets/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteTweetById(@PathVariable UUID id) {
         service.deleteTweetById(id);
     }

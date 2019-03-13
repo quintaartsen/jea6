@@ -20,21 +20,31 @@ public class ModelTest {
 
 
     @Test
-    public void ConstructorTest() {
+    public void addFollowerTest() {
+        User user = new User(Role.User, "testUser@mail.com", "testUser", "password");
+        User user2 = new User(Role.User, "testUser@mail.com", "testUser", "password");
+
+        user.addFollower(user2);
+        Assert.assertEquals(1, user.getFollowers().size());
+        Assert.assertEquals(0, user.getFollowing().size());
+    }
+
+    @Test
+    public void addFollowingTest() {
+        User user = new User(Role.User, "testUser@mail.com", "testUser", "password");
+        User user2 = new User(Role.User, "testUser@mail.com", "testUser", "password");
+
+        user.addFollowing(user2);
+        Assert.assertEquals(0, user.getFollowers().size());
+        Assert.assertEquals(1, user.getFollowing().size());
+    }
+
+    @Test
+    public void addLike() {
         User user = new User(Role.User, "testUser@mail.com", "testUser", "password");
         Tweet tweet = new Tweet("Message #test #test2", user);
 
-        assertEquals(2, tweet.getTrends().size());
-        Assert.assertEquals(0, tweet.getMentions().size());
-
-        Tweet tweet2 = new Tweet("Message @test @test2", user);
-
-        Assert.assertEquals(2, tweet2.getMentions().size());
-        assertEquals(0, tweet2.getTrends().size());
-
-        Tweet tweetEmpty = new Tweet("Message", user);
-
-        assertEquals(0, tweetEmpty.getTrends().size());
-        Assert.assertEquals(0, tweetEmpty.getMentions().size());
+        tweet.addLike(user);
+        Assert.assertEquals(1, tweet.getLikes().size());
     }
 }

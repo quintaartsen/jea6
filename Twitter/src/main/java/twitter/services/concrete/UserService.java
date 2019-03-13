@@ -27,6 +27,7 @@ public class UserService implements IUserService {
         this.repository = repository;
     }
 
+
     public List<User> getUsers() {
         return (List<User>) repository.findAll();
     }
@@ -52,13 +53,22 @@ public class UserService implements IUserService {
         }
     }
 
-    /**
-     * Add following user.
-     *
-     * @param followingId the following id
-     * @param id          the id
-     * @return the user
-     */
+    public void updateUser(User user) {
+        repository.save(user);
+    }
+
+    public List<User> getUserFollowers(UUID id) {
+        User user = repository.findById(id).orElse(null);
+        if(user == null) return null;
+        return user.getFollowers();
+    }
+
+    public List<User> getUserFollowing(UUID id) {
+        User user = repository.findById(id).orElse(null);
+        if(user == null) return null;
+        return user.getFollowing();
+    }
+
     public User addFollowing(UUID followingId, UUID id) {
         if(followingId != id) {
             User user = repository.findById(id).orElse(null);
@@ -76,13 +86,6 @@ public class UserService implements IUserService {
         return null;
     }
 
-    /**
-     * Remove following user.
-     *
-     * @param followingId the following id
-     * @param id          the id
-     * @return the user
-     */
     public User removeFollowing(UUID followingId, UUID id) {
         User user = repository.findById(id).orElse(null);
         User followingUser = repository.findById(followingId).orElse(null);
