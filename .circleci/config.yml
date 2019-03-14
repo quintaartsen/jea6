@@ -1,0 +1,25 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - run: cd Twitter
+      - run: RUN mvn -B -DskipTests clean package
+  test:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - run: cd Twitter
+      - run: RUN mvn -B -DskipTests clean package
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
+
+
+      
