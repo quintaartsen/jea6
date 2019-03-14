@@ -41,19 +41,19 @@ public class TweetController {
 
     @PostMapping(path = "users/{id}/tweets", produces = "application/json", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void CreateTweet(@PathVariable UUID id, @RequestBody Tweet tweet) {
+    public void createTweet(@PathVariable UUID id, @RequestBody Tweet tweet) {
          service.createTweet(tweet, id);
     }
 
     @PostMapping(path= "tweets/{id}/like/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public void LikeTweet(@PathVariable UUID id, @PathVariable UUID userId) {
+    public void likeTweet(@PathVariable UUID id, @PathVariable UUID userId) {
         service.addLike(id, userId);
     }
 
     @DeleteMapping(path= "tweets/{id}/like/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public void UnLikeTweet(@PathVariable UUID id, @PathVariable UUID userId) {
+    public void unLikeTweet(@PathVariable UUID id, @PathVariable UUID userId) {
         service.removeLike(id, userId);
     }
 
