@@ -10,14 +10,13 @@ jobs:
   test:
     docker:
       - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo/Twitter
+    working_directory: ~/Twitter
 
     environment:
       MAVEN_OPTS: -Xmx3200m
 
     steps:
       - checkout
-      - run: cd Twitter
       - run: ls
       - run: mvn dependency:go-offline
       - run: mvn clean package
