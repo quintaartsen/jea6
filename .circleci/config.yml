@@ -3,10 +3,16 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk
+    working_directory: ~/Twitter
+
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+
     steps:
       - checkout
-      - run: cd Twitter
-      - run: RUN mvn -B -DskipTests clean package
+      - run: ls
+      - run: mvn dependency:go-offline
+      - run: mvn -B -DskipTests clean package
   test:
     docker:
       - image: circleci/openjdk:8-jdk
@@ -17,6 +23,8 @@ jobs:
 
     steps:
       - checkout
+      - run: ls
+      - run: cd Twitter
       - run: ls
       - run: mvn dependency:go-offline
       - run: mvn clean package
