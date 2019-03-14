@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - checkout:
-        path: ~/repo
+          path: ~/repo
       - run: mvn dependency:go-offline
       - run: mvn -B -DskipTests clean package
   test:
@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - checkout:
-        path: ~/repo
+          path: ~/repo
       - run: mvn dependency:go-offline
       - run: mvn clean package
 workflows:
