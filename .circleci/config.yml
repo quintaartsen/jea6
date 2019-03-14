@@ -18,6 +18,7 @@ jobs:
     steps:
       - checkout
       - run: cd Twitter
+      - run: ls
       - run: mvn dependency:go-offline
       - run: mvn clean package
 workflows:
