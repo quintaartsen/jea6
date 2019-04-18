@@ -25,6 +25,12 @@ public interface IUserService {
      */
     User getUserById(UUID id);
 
+    /**
+     * Gets user by username.
+     *
+     * @param username the username
+     * @return the user by username
+     */
     User getUserByUsername(String username);
 
     /**

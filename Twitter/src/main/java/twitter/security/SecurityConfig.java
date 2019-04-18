@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -32,10 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/login.xhtml")
             .deleteCookies("JSESSIONID")
             .and()
+            .addFilter(new TokenAuthenticationFilter(authenticationManagerBean()))
+            .addFilterAfter(new TokenAuthorizationFilter(authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
             .antMatchers("/dashboard*").hasRole("ADMIN")
-            .antMatchers("/api/**").authenticated()
-            .antMatchers(HttpMethod.POST, "/api/users").permitAll()
+            .anyRequest().authenticated()
+            .antMatchers(HttpMethod.POST, TokenConstrains.getTOKEN_URL()).permitAll()
+            .antMatchers(HttpMethod.POST, TokenConstrains.getSIGNUP_URL()).permitAll()
             .anyRequest().permitAll();
     }
 
