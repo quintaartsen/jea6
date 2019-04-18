@@ -40,6 +40,10 @@ public class Tweet {
     @Setter
     private Date createdAt;
 
+    public Tweet()
+    {
+
+    }
 
     public Tweet(String message, User user)
     {

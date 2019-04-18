@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import twitter.models.Tweet;
 import twitter.models.User;
-import twitter.repositories.interfaces.ITweetRepository;
-import twitter.repositories.interfaces.IUserRepository;
+import twitter.services.interfaces.ITweetService;
+import twitter.services.interfaces.IUserService;
 
 import java.util.List;
 
@@ -14,28 +14,28 @@ import java.util.List;
 @Component(value = "adminController")
 public class AdminController {
 
-    private final IUserRepository userRepository;
-    private final ITweetRepository tweetRepository;
+    private final IUserService userService;
+    private final ITweetService tweetService;
 
     @Autowired
-    public AdminController(IUserRepository userRepository, ITweetRepository tweetRepository) {
-        this.userRepository = userRepository;
-        this.tweetRepository = tweetRepository;
+    public AdminController(IUserService userService, ITweetService tweetService) {
+        this.userService = userService;
+        this.tweetService = tweetService;
     }
 
     public List<User> getAllUsers() {
-        return (List<User>) userRepository.findAll();
+        return userService.getUsers();
     }
 
     public List<Tweet> getAllTweets() {
-        return (List<Tweet>) tweetRepository.findAll();
+        return tweetService.getTweets();
     }
 
     public void deleteUser(User user) {
-        userRepository.deleteById(user.getId());
+        userService.deleteUserById(user.getId());
     }
 
     public void deleteTweet(Tweet tweet) {
-        tweetRepository.deleteById(tweet.getId());
+        tweetService.deleteTweetById(tweet.getId());
     }
 }

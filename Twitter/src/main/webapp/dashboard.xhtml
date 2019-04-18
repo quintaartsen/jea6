@@ -5,7 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Kwetter Admin Login</title>
+    <title>Twitter dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </h:head>
@@ -25,7 +25,7 @@
     }
 </style>
 
-<h:body styleClass="grey lighten-5">
+<h:body styleClass="grey lighten-3">
     <nav>
         <div class="nav-wrapper grey dark">
             <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -47,6 +47,12 @@
         <p:column styleClass="table-header" headerText="Role">
             <h:outputText styleClass="table-row" value="#{user.role}" />
         </p:column>
+        <p:column styleClass="table-header" headerText="Following">
+            <h:outputText styleClass="table-row" value="#{user.following.size()}" />
+        </p:column>
+        <p:column styleClass="table-header" headerText="Followers">
+            <h:outputText styleClass="table-row" value="#{user.followers.size()}" />
+        </p:column>
         <p:column>
             <h:form>
                 <p:commandButton value="Delete" id="deleteUser" action="#{adminController.deleteUser(user)}" update="users" />
@@ -63,6 +69,9 @@
         </p:column>
         <p:column styleClass="table-header" headerText="Message">
             <h:outputText styleClass="table-row" value="#{tweet.text}"/>
+        </p:column>
+        <p:column styleClass="table-header" headerText="Likes">
+            <h:outputText styleClass="table-row" value="#{tweet.likes.size()}"/>
         </p:column>
         <p:column styleClass="table-header" headerText="Reports">
             <h:outputText styleClass="table-row" value="#{tweet.reports.size()}"/>
