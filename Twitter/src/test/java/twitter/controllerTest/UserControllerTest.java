@@ -48,7 +48,7 @@ public class UserControllerTest {
 
     @Test
     public void getUserById2() throws Exception{
-        User user = new User(Role.User, "email@mail.com", "username", "password");
+        User user = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user.setId(new UUID(1, 1));
         service.createUser(user);
         mvc.perform(get("/users/"+new UUID(1, 1)).contentType(MediaType.APPLICATION_JSON))

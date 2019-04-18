@@ -1,5 +1,6 @@
 package twitter.services.interfaces;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import twitter.models.User;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public interface IUserService {
      * @return the user by id
      */
     User getUserById(UUID id);
+
+    User getUserByUsername(String username);
 
     /**
      * Create user user.

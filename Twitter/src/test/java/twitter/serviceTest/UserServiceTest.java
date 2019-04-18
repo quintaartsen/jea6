@@ -38,8 +38,8 @@ public class UserServiceTest {
     @Test
     public void addFollowingTest1() {
 
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
-        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
+        User user2 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         user2.setId(new UUID(2, 2));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
@@ -51,8 +51,8 @@ public class UserServiceTest {
 
     @Test
     public void addFollowingTest2() {
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
-        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
+        User user2 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         user2.setId(new UUID(2, 2));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
@@ -64,8 +64,8 @@ public class UserServiceTest {
 
     @Test
     public void removeFollowingTest1() {
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
-        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
+        User user2 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         user2.setId(new UUID(2, 2));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
@@ -78,8 +78,8 @@ public class UserServiceTest {
 
     @Test
     public void removeFollowingTest2() {
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
-        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
+        User user2 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         user2.setId(new UUID(2, 2));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
@@ -92,7 +92,7 @@ public class UserServiceTest {
 
     @Test
     public void updateUsernameTest1() {
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
 
@@ -102,7 +102,7 @@ public class UserServiceTest {
 
     @Test
     public void updateUsernameTest3() {
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
 

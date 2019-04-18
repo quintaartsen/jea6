@@ -1,11 +1,11 @@
 package twitter.services.concrete;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import twitter.models.User;
 import twitter.repositories.interfaces.IUserRepository;
 import twitter.services.interfaces.IUserService;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -16,15 +16,18 @@ import java.util.UUID;
 public class UserService implements IUserService {
 
     private final IUserRepository repository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * Instantiates a new User service.
      *
      * @param repository the repository
+     * @param bCryptPasswordEncoder
      */
     @Autowired
-    public UserService(IUserRepository repository) {
+    public UserService(IUserRepository repository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.repository = repository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
 
@@ -36,7 +39,13 @@ public class UserService implements IUserService {
         return repository.findById(id).orElse(null);
     }
 
+    public User getUserByUsername(String username) {
+        User user = repository.findByUserName(username);
+        return user;
+    }
+
     public User createUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         repository.save(user);
         return user;
     }

@@ -12,7 +12,7 @@ public class ModelTest {
 
     @Test
     public void userTest() {
-        User user = new User(Role.User, "user@mail.nl", "username", "password");
+        User user = new User(Role.ROLE_USER, "user@mail.nl", "username", "password");
         Tweet tweet = new Tweet("Tweet message", user);
 
         assertEquals(user, tweet.getOwner());
@@ -21,8 +21,8 @@ public class ModelTest {
 
     @Test
     public void addFollowerTest() {
-        User user = new User(Role.User, "testUser@mail.com", "testUser", "password");
-        User user2 = new User(Role.User, "testUser@mail.com", "testUser", "password");
+        User user = new User(Role.ROLE_USER, "testUser@mail.com", "testUser", "password");
+        User user2 = new User(Role.ROLE_USER, "testUser@mail.com", "testUser", "password");
 
         user.addFollower(user2);
         Assert.assertEquals(1, user.getFollowers().size());
@@ -31,8 +31,8 @@ public class ModelTest {
 
     @Test
     public void addFollowingTest() {
-        User user = new User(Role.User, "testUser@mail.com", "testUser", "password");
-        User user2 = new User(Role.User, "testUser@mail.com", "testUser", "password");
+        User user = new User(Role.ROLE_USER, "testUser@mail.com", "testUser", "password");
+        User user2 = new User(Role.ROLE_USER, "testUser@mail.com", "testUser", "password");
 
         user.addFollowing(user2);
         Assert.assertEquals(0, user.getFollowers().size());
@@ -41,7 +41,7 @@ public class ModelTest {
 
     @Test
     public void addLike() {
-        User user = new User(Role.User, "testUser@mail.com", "testUser", "password");
+        User user = new User(Role.ROLE_USER, "testUser@mail.com", "testUser", "password");
         Tweet tweet = new Tweet("Message #test #test2", user);
 
         tweet.addLike(user);

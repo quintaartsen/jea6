@@ -49,7 +49,7 @@ public class TweetControllerTest {
 
     @Test
     public void getTweetById2() throws Exception{
-        User user = new User(Role.User, "email@mail.com", "username", "password");
+        User user = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user.setId(new UUID(1, 1));
         Tweet tweet = new Tweet("test", user);
         service.createTweet(tweet,new UUID(1, 1));

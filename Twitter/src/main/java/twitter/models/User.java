@@ -74,6 +74,10 @@ public class User {
     @OneToMany
     private List<Tweet> Tweets = new  ArrayList();
 
+    public User(){
+
+    }
+
     public User(Role role, String email, String username, String password) {
         this.role = role;
         this.email = email;

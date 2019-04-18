@@ -43,7 +43,7 @@ public class TweetServiceTest {
     @Test
     public void addLikeTest1() {
 
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
         Tweet tweet = new Tweet("test", user1);
@@ -55,7 +55,7 @@ public class TweetServiceTest {
     @Test
     public void addLikeTest2() {
 
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
         Tweet tweet = new Tweet("test", user1);
@@ -68,7 +68,7 @@ public class TweetServiceTest {
     @Test
     public void removeLikeTest1() {
 
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
         Tweet tweet = new Tweet("test", user1);
@@ -80,9 +80,9 @@ public class TweetServiceTest {
     @Test
     public void removeLikeTest2() {
 
-        User user1 = new User(Role.User, "email@mail.com", "username", "password");
+        User user1 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user1.setId(new UUID(1, 1));
-        User user2 = new User(Role.User, "email@mail.com", "username", "password");
+        User user2 = new User(Role.ROLE_USER, "email@mail.com", "username", "password");
         user2.setId(new UUID(1, 2));
         when(userRepo.findById(user1.getId())).thenReturn(java.util.Optional.of(user1));
         Tweet tweet = new Tweet("test", user1);

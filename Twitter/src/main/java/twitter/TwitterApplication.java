@@ -9,13 +9,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class TwitterApplication extends SpringBootServletInitializer {
 
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
-    {
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(TwitterApplication.class);
     }
 
-    public static  void main(String[] args)
-    {
+    public static void main(String[] args) {
         SpringApplication.run(TwitterApplication.class, args);
     }
 }

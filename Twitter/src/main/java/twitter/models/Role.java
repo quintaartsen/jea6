@@ -1,5 +1,5 @@
 package twitter.models;
 
 public enum Role {
-    User, Moderator, Admin
+    ROLE_USER, ROLE_MODERATOR, ROLE_ADMIN
 }
