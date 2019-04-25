@@ -12,7 +12,7 @@ public class TokenConstrains {
     static final String SECRET = "SECRET_KEY";
 
     @Getter
-    static final long EXPIRATION_TIME = 108_000;
+    static final long EXPIRATION_TIME = 108_108_000;
 
     @Getter
     static final String TOKEN_PREFIX = "Bearer ";

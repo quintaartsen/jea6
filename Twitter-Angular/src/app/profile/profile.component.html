@@ -1,0 +1,33 @@
+<br />
+<div class='col-md-12'>
+  <div class='col-md-2 picture'>
+    <img width="180px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_1280.png">
+  </div>
+  <div class='col-md-10 info'>
+    <p>Username: {{user.userName}}</p>
+    <p>Role: {{user.role}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Location: {{user.location}}</p>
+    <p>Website: {{user.website}}</p>
+    <p>Biography: {{user.biography}}</p>
+    <p>Tweets: {{user.tweets.length}}</p>
+    <p>Followers: {{user.followers.length}}</p>
+    <p>Following: {{user.following.length}}</p>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class='col-md-12'>
+  <h3 class='text-center'>Tweets</h3>
+  <div *ngFor='let tweet of recentTweets'>
+    <div class="card">
+      <div class="card-content">
+        <p style="float: left;">From: {{tweet.owner.userName}}</p>
+        <p style="float: right;">Posted on: {{tweet.createdAt}}</p>
+        <br />
+        <p>Message: {{tweet.text}}</p>
+        <p style="float: right;">Likes: {{tweet.likes.length}}</p>
+        <p style="float: right;">Reports: {{tweet.reports.length}}</p>
+      </div>
+    </div>
+  </div>
+</div>

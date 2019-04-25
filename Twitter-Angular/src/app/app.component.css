@@ -1,0 +1,13 @@
+.logo {
+    max-width: 64px;
+    margin-left: 10px;
+}
+
+a {
+    font-size: 20px !important;
+}
+
+a:hover {
+    text-decoration: none;
+    color: white;
+}

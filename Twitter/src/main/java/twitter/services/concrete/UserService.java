@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import twitter.models.User;
 import twitter.repositories.interfaces.IUserRepository;
 import twitter.services.interfaces.IUserService;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,8 +33,12 @@ public class UserService implements IUserService {
     }
 
 
-    public List<User> getUsers() {
-        return (List<User>) repository.findAll();
+    public List<User> getUsers(String username) {
+        if(username == null)
+            return (List<User>) repository.findAll();
+        List<User> users = new ArrayList<>();
+        users.add(repository.findByUserName(username));
+        return users;
     }
 
     public User getUserById(UUID id) {

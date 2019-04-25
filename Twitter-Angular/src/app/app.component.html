@@ -1,0 +1,15 @@
+<nav *ngIf="authService.isLoggedIn()">
+    <div style="background-color: #f05a1a;" class="nav-wrapper lighten-2">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li *ngIf="this.router.url !== '/login'"><a routerLinkActive="active" routerLink="/home">Home</a></li>
+            <li *ngIf="this.router.url !== '/login'"><a routerLinkActive="active" routerLink="/timeline">Timeline</a></li>
+            <li *ngIf="this.router.url !== '/login'"><a routerLinkActive="active" routerLink="/users">Users</a></li>
+            <li *ngIf="this.router.url !== '/login'"><a routerLinkActive="active" routerLink="/profile">Profile</a>
+            </li>
+            <li><a (click)="logout()">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

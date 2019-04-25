@@ -1,0 +1,19 @@
+.input-search {
+    float: left;
+}
+
+.btn-search {
+    float: right;
+    background-color: #f05a1a;
+}
+
+.profile-picture {
+    float: left;
+    height: 150px;
+    padding-right: 10px;
+}
+
+.info {
+    padding: 2px 16px;
+    float: left;
+}

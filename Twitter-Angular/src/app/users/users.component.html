@@ -1,0 +1,35 @@
+<br />
+<div class='col-md-12'>
+  <div class="card">
+    <div class="card-content">
+      <div class='form-group'>
+        <input type='text' [(ngModel)]='username' class='form-control col-md-10 input-search'
+          placeholder='Search users...'>
+        <button [disabled]="username === ''" class='btn btn-success btn-lg btn-block col-md-2 btn-search'
+          (click)='searchUsers()'>Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div *ngIf='this.users[0] != null' class='col-md-12'>
+  <h3 class='text-center'>Users</h3>
+  <div *ngFor='let user of users'>
+    <div class="card card-custom">
+      <div class="card-content">
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973461_1280.png" alt="Avatar" class="col-md-2 profile-picture">
+        <div class="info">
+          <p>Username: {{user.userName}}</p>
+          <p>Role: {{user.role}}</p>
+          <p>Email: {{user.email}}</p>
+          <p>Location: {{user.location}}</p>
+          <p>Website: {{user.website}}</p>
+          <p>Biography: {{user.biography}}</p>
+          <p>Tweets: {{user.tweets.length}}</p>
+          <p>Followers: {{user.followers.length}}</p>
+          <p>Following: {{user.following.length}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<br />
+<div class='col-md-12'>
+  <h3 class='text-center'>Timeline</h3>
+  <div *ngFor='let tweet of tweets'>
+    <div class="card">
+      <div class="card-content">
+        <p style="float: left;">From: {{tweet.owner.userName}}</p>
+        <p style="float: right;">Posted on: {{tweet.createdAt}}</p>
+        <br />
+        <p>Message: {{tweet.text}}</p>
+        <p style="float: right;">Likes: {{tweet.likes.length}}</p>
+        <p style="float: right;">Reports: {{tweet.reports.length}}</p>
+      </div>
+    </div>
+  </div>
+</div>

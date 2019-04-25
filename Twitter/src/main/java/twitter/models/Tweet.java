@@ -1,8 +1,11 @@
 package twitter.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
+import twitter.util.UserSerializer;
 
 import javax.persistence.*;
 import java.util.*;
@@ -34,6 +37,8 @@ public class Tweet {
     @Getter
     @Setter
     @OneToOne
+    @JsonIgnoreProperties("owner")
+    @JsonSerialize(using = UserSerializer.class)
     private User owner;
 
     @Getter

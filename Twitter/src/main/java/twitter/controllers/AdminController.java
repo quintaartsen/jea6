@@ -24,7 +24,7 @@ public class AdminController {
     }
 
     public List<User> getAllUsers() {
-        return userService.getUsers();
+        return userService.getUsers(null);
     }
 
     public List<Tweet> getAllTweets() {

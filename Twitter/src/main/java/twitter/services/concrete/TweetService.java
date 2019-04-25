@@ -53,8 +53,10 @@ public class TweetService implements ITweetService {
 
         User owner = userRepository.findById(id).orElse(null);
         if(owner == null) return null ;
+        owner.addTweet(tweet);
         tweet.setOwner(owner);
         repository.save(tweet);
+        userRepository.save(owner);
         return tweet;
     }
 

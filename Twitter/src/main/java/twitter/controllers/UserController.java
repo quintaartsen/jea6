@@ -22,8 +22,8 @@ public class UserController {
 
     @GetMapping(produces = "application/json")
     public @ResponseBody
-    List<User> getUsers() {
-        return service.getUsers();
+    List<User> getUsers(@RequestParam(value = "username", required = false) String userName) {
+        return service.getUsers(userName);
     }
 
     @GetMapping(path = "{id}", produces = "application/json")

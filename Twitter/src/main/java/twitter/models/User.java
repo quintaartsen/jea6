@@ -1,5 +1,7 @@
 package twitter.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -88,6 +90,9 @@ public class User {
         this.location = "";
         this.website = "";
         this.biography = "";
+    }
+    public void addTweet(Tweet tweet) {
+        Tweets.add(tweet);
     }
 
     public void addFollower(User follower) {
