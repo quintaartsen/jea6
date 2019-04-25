@@ -1,0 +1,13 @@
+version: '3'
+services:
+    backend:
+        container_name: twitter-backend
+        build: Twitter
+        ports:
+            - 9090:9090
+
+    frontend:
+        container_name: twitter-frontend
+        build: Twitter-Angular
+        ports:
+            - 8080:4200
